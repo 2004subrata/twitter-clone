@@ -1,11 +1,13 @@
 import jwt from "jsonwebtoken";
-import { config, configDotenv } from "dotenv";
+import dotenv from "dotenv";
 
-config();
+dotenv.config({
+  path: "../middlewares/.env",
+});
 
 const authMiddleware = async (req, res, next) => {
   try {
-    const { token } = res.cookie;
+    const { token } = req.cookie;
     console.log(token);
     if (!token) {
       return res.status(401).json({
@@ -21,3 +23,5 @@ const authMiddleware = async (req, res, next) => {
     next();
   } catch (error) {}
 };
+
+export default authMiddleware;
