@@ -7,7 +7,7 @@ dotenv.config({
 
 const authMiddleware = async (req, res, next) => {
   try {
-    const { token } = req.cookie;
+    const { token } = req.cookies;
     console.log(token);
     if (!token) {
       return res.status(401).json({
@@ -18,7 +18,7 @@ const authMiddleware = async (req, res, next) => {
 
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
     console.log(decoded);
-    req.user = decoded.userId;
+    req.user = decoded;
 
     next();
   } catch (error) {}
