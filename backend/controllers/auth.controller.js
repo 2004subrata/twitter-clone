@@ -93,7 +93,7 @@ export const loginController = async (req, res) => {
 };
 
 /**
- *
+ * - Controller to log out a user by clearing the authentication cookie.
  */
 export const logoutController = (req, res) => {
   try {
