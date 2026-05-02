@@ -21,7 +21,9 @@ const authMiddleware = async (req, res, next) => {
     req.user = decoded;
 
     next();
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export default authMiddleware;

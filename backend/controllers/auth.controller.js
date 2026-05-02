@@ -43,7 +43,7 @@ export const registerController = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -88,7 +88,7 @@ export const loginController = async (req, res) => {
         message: `Welcome back ${user.name}`,
       });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -102,6 +102,6 @@ export const logoutController = (req, res) => {
       message: "User logged out successfully",
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
