@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import databaseConnection from "./config/database.js";
 import authRoute from "./routes/auth.route.js";
 import tweetRoute from "./routes/tweet.route.js";
+import userRoute from "./routes/user.route.js";
 
 dotenv.config({
   path: ".env",
@@ -27,7 +28,9 @@ app.use(cookieParser());
 //api
 app.use("/api/v1/auth", authRoute);
 
-app.use("/api/v1/tweet", tweetRoute)
+app.use("/api/v1/tweet", tweetRoute);
+
+app.use("/api/v1/user", userRoute);
 
 app.get("/home", (req, res) => {
   res.status(200).json({
