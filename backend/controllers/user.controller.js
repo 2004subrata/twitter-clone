@@ -5,7 +5,7 @@ export const bookmarks = async (req, res) => {
     const loggedInUserId = req.user.userId;
     const tweetId = req.params.id;
 
-    const user = await User.findById({ loggedInUserId });
+    const user = await User.findById(loggedInUserId);
     if (user.bookmarks.includes(tweetId)) {
       // remove
       await User.findByIdAndUpdate(loggedInUserId, {
@@ -23,6 +23,25 @@ export const bookmarks = async (req, res) => {
         message: "Saved to bookmark",
       });
     }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getMyProfile = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await User.findById(id).select("-password");
+    return res.status(200).json({
+      user,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getOtherUser = async (req, res) => {
+  try {
   } catch (error) {
     console.error(error);
   }
