@@ -56,3 +56,30 @@ export const getOtherUser = async (req, res) => {
     console.error(error);
   }
 };
+
+export const follow = async (req, res) => {
+  try {
+    const loggedInUserId = req.user.userId;
+    const userId = req.params.id;
+
+    const loggedInUser = await User.findById(loggedInUserId);
+    const user = await User.findById(userId);
+
+    const alreadyFollowed = await user.followers.includes(loggedInUserId);
+
+    if (!alreadyFollowed) {
+      await user.updateOne({ $push: { followers: loggedInUserId } });
+      await loggedInUser.updateOne({ $push: { following: userId } });
+    } else {
+      return res.status(400).json({
+        message: `${loggedInUser.name} already followed to ${user.name}`,
+      });
+    }
+    return res.status(200).json({
+      message: `${loggedInUser.name} just follow to ${user.name}`,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
