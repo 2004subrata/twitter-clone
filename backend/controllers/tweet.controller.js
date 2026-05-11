@@ -79,3 +79,14 @@ export const likeOrDislike = async (req, res) => {
     console.error(error);
   }
 };
+
+export const getAllTweets = async (req, res) => {
+  // loggedInUser's tweet + following user's tweet
+  try {
+    const loggedInUserId = req.user.userId;
+    const loggedInUser = await findById(loggedInUserId);
+    const loggedInUserTweet = await Tweet.find({ _id: loggedInUserId });
+  } catch (error) {
+    console.log(error);
+  }
+};
